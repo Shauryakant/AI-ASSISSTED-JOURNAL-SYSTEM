@@ -25,7 +25,7 @@ export default function JournalForm({ userId, onEntryAdded }: { userId: string, 
             setAnalysis(result);
         } catch (error) {
             console.error('Analysis failed', error);
-            alert('Failed to analyze emotion. Check the backend/Groq configuration.');
+            alert('Failed to analyze emotion. Check the app server/Groq configuration.');
         } finally {
             setAnalyzing(false);
         }
@@ -50,7 +50,7 @@ export default function JournalForm({ userId, onEntryAdded }: { userId: string, 
             onEntryAdded();
         } catch (error) {
             console.error('Failed to save entry', error);
-            alert('Failed to save. Ensure backend is running.');
+            alert('Failed to save. Ensure the app server is running.');
         } finally {
             setLoading(false);
         }

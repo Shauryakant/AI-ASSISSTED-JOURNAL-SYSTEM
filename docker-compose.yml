@@ -9,32 +9,19 @@ services:
     volumes:
       - mongodb_data:/data/db
 
-  backend:
+  app:
     build:
-      context: ./backend
+      context: ./app
       dockerfile: Dockerfile
-    container_name: journal-backend
-    env_file:
-      - ./backend/.env
+    container_name: journal-app
     ports:
-      - "5000:5000"
+      - "3000:3000"
+    env_file:
+      - ./app/.env.local
     environment:
-      - PORT=5000
       - MONGODB_URI=mongodb://mongodb:27017/ai-journal
     depends_on:
       - mongodb
-
-  frontend:
-    build:
-      context: ./frontend
-      dockerfile: Dockerfile
-    container_name: journal-frontend
-    ports:
-      - "3000:3000"
-    environment:
-      - INTERNAL_API_URL=http://backend:5000
-    depends_on:
-      - backend
 
 volumes:
   mongodb_data:

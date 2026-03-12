@@ -1,0 +1,15 @@
+
+> ai-journal-app@0.1.0 dev
+> next dev
+
+▲ Next.js 16.1.6 (Turbopack)
+- Local:         http://localhost:3000
+- Network:       http://10.148.134.188:3000
+- Environments: .env.local
+
+✓ Starting...
+Creating turbopack project {
+  dir: 'c:\\Users\\HP\\.gemini\\antigravity\\scratch\\ai-journal-system\\frontend',
+  testMode: true
+}
+✓ Ready in 786ms

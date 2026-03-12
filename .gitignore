@@ -7,8 +7,8 @@
 !**/.env.example
 
 # next.js
-frontend/.next/
-frontend/out/
+app/.next/
+app/out/
 
 # build and logs
 build_log.txt

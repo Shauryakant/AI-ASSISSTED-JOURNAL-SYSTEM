@@ -1,11 +1,11 @@
 # AI-Assisted Journal System Architecture
 
 ## 1. Scaling to 100k Users
-The system is built on Node.js and Next.js, prioritizing horizontal scalability:
-- **Backend (Node.js)**: Stateless architecture allowing easy deployment of multiple instances behind a load balancer (e.g., Nginx, AWS ALB).
+The system is built as a single Next.js application with server-side API routes, prioritizing horizontal scalability:
+- **Application Layer (Next.js)**: Stateless route handlers can be scaled horizontally behind a load balancer or through Vercel's serverless infrastructure.
 - **Database (MongoDB)**: We can use MongoDB Atlas with sharding enabled based on the `userId`. Read-heavy workloads map nicely to read-replicas.
-- **Frontend (Next.js)**: Deployed to edge networks (like Vercel or AWS CloudFront) using static asset caching for the client code.
-- **Infrastructure**: The provided `docker-compose` setup natively supports clustering using Docker Swarm or migration to Kubernetes.
+- **Frontend Delivery**: Static assets and the UI can be served efficiently through a CDN-backed deployment platform.
+- **Infrastructure**: The application can be deployed as one service, while MongoDB remains an external managed dependency.
 
 ## 2. Reducing LLM Cost
 Calling LLM APIs per entry can be costly. We employ the following strategies:
@@ -16,7 +16,7 @@ Calling LLM APIs per entry can be costly. We employ the following strategies:
 ## 3. Caching Strategy for Repeated Analysis
 We can cache LLM analysis requests using Redis to prevent duplicate API queries:
 - **Exact Match Caching**: Hash the `text` string (e.g., using SHA-256) and use it as a Redis key for the result.
-- **Debouncing**: Ensure requests hitting the backend for identical content before caching finishes are queued/deduplicated.
+- **Debouncing**: Ensure requests hitting the API route for identical content before caching finishes are queued/deduplicated.
 - **In-Memory Alternative**: For simpler setups, a memory store (like Node cache) works well for local testing before integrating Redis.
 
 ## 4. Protecting Sensitive Journal Data
